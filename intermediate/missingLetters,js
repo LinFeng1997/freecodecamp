@@ -1,0 +1,72 @@
+function fearNotLetter(str) {
+  var arr = str.split(""),ch;//可以不要split
+  for (var i = 1; i < arr.length; i++) {
+    // console.log(str.charCodeAt(i)-str.charCodeAt(i-1));
+    if (str.charCodeAt(i)-str.charCodeAt(i-1)!==1) {
+      ch = String.fromCharCode(str.charCodeAt(i)-1);
+      return ch;
+    }
+  }
+  return ch;
+}
+
+fearNotLetter("abce");
+
+
+// 基础写法
+function fearNotLetter(str) {
+
+  for(var i = 0; i < str.length; i++) {
+    /* code of current character */
+    var code = str.charCodeAt(i);
+
+    /* if code of current character is not equal to first character + no of iteration
+    hence character has been escaped */
+    if (code !== str.charCodeAt(0) + i) {
+
+      /* if current character has escaped one character find previous char and return */
+      return String.fromCharCode(code - 1);
+    }  
+  }
+  return undefined;
+}
+
+// test here
+fearNotLetter("abce");
+
+// 中级写法
+function fearNotLetter(str) {
+  // 第一个字母作为基准
+  var compare = str.charCodeAt(0), missing;
+
+  str.split('').map(function(letter,index) {
+    console.log(letter);
+    console.log(index);
+    // 映射出这个值
+    if (str.charCodeAt(index) == compare) {
+      ++compare;
+    } else {
+      missing = String.fromCharCode(compare);
+    }
+  });
+
+  return missing;
+}
+
+// test here
+fearNotLetter("abce");
+
+// 高级写法
+function fearNotLetter(str) {
+  var allChars = '';
+  // 厉害了用正则
+  var notChars = new RegExp('[^'+str+']','g');
+
+  for (var i = 0; allChars[allChars.length-1] !== str[str.length-1] ; i++)
+    allChars += String.fromCharCode(str[0].charCodeAt(0) + i);
+  //返回未匹配到的
+  return allChars.match(notChars) ? allChars.match(notChars).join('') : undefined;
+}
+
+// test here
+fearNotLetter("abce");
