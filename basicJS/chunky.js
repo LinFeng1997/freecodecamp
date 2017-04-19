@@ -20,7 +20,7 @@ function chunk(arr, size) {
 //chunk([0, 1, 2, 3, 4, 5], 3);
 //chunk([0, 1, 2, 3, 4, 5], 2);
 chunk([0, 1, 2, 3, 4, 5, 6, 7, 8], 4);
-// 优雅写法
+// 优雅写法，既然是要切块，那就用slice切片方法
 function chunk (arr, len) {
 
   var chunks = [],
@@ -39,18 +39,19 @@ chunk([0, 1, 2, 3, 4, 5], 3);
 chunk([0, 1, 2, 3, 4, 5], 2);
 chunk([0, 1, 2, 3, 4, 5, 6, 7, 8], 4);
 
-// 高端写法
+// 高端写法，直接定义在数组原型上
 Object.defineProperty(Array.prototype, 'chunk_inefficient', {
     value: function(chunkSize) {
         var array=this;
         return [].concat.apply([],
+        //这里还是遍历了n次
             array.map(function(elem,i) {
                 return i%chunkSize ? [] : [array.slice(i,i+chunkSize)];
             })
         );
     }
 });
-
+[0, 1, 2, 3, 4, 5, 6, 7, 8].chunk_inefficient(4)
 // 5个数组Array方法: indexOf、filter、forEach、map、reduce
 var arr = [1, 2, 3, 4, 5, 6, 7, 8];
 //遍历找值

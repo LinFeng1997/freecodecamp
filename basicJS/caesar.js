@@ -17,7 +17,7 @@ function rot13(str) { // LBH QVQ VG!
 // Change the inputs below to test
 rot13("SERR PBQR PNZC");
 
-//基础写法
+//基础写法，太繁琐了
 function rot13(str) {
   // Split str into a character array
   return str.split('')
@@ -40,7 +40,7 @@ function rot13(str) {
 rot13("SERR PBQR PNZC");
 
 
-//中级写法
+//中级写法，字符串就是要用正则
 function rot13(str) {
   var rotCharArray = [];
   var regEx = /[A-Z]/ ;
@@ -62,7 +62,7 @@ function rot13(str) {
 // Change the inputs below to test
 rot13("LBH QVQ VG!");
 
-//高级写法
+//高级写法，正则加replace加箭头函数，美滋滋
 function rot13(str) { // LBH QVQ VG!
   return str.replace(/[A-Z]/g, L => String.fromCharCode((L.charCodeAt(0) % 26) + 65));
 }
